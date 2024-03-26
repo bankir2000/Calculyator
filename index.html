@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор ВК</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 p-4">
+    <div class="max-w-md mx-auto bg-white p-8 rounded-md shadow-md">
+        <h1 class="text-2xl font-bold mb-4">Калькулятор БК</h1>
+
+        <!-- Чекбокс для знищеної цілі -->
+        <div class="mb-4">
+            <input type="checkbox" id="destroyedTarget" name="destroyedTarget" class="h-8 w-8 text-gray-700">
+            <label for="destroyedTarget" class="text-xl font-medium text-gray-700">Ціль знищено</label>
+        </div>
+
+        <!-- Поля введення значень -->
+        <div class="mb-4">
+            <label for="value1" class="block text-3xl font-medium text-gray-700">14.5:</label>
+            <input type="text" id="value1" name="value1" class="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:border-gray-500 focus:ring-0 text-3xl bg-gray-200">
+        </div>
+        <div class="mb-4">
+            <label for="value2" class="block text-3xl font-medium text-gray-700">5.45:</label>
+            <input type="text" id="value2" name="value2" class="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:border-gray-500 focus:ring-0 text-3xl bg-gray-200">
+        </div>
+
+        <!-- Кнопки для розрахунку та копіювання результату -->
+        <div class="mb-4">
+            <button onclick="calculate()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mr-2">Розрахувати</button>
+            <button onclick="copyResult()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md">Скопіювати Результат</button>
+        </div>
+
+        <!-- Відображення результату -->
+        <div id="result" class="text-xl font-bold"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            var value1 = parseFloat(document.getElementById('value1').value);
+            var value2 = parseFloat(document.getElementById('value2').value);
+            var destroyedTarget = document.getElementById('destroyedTarget').checked;
+
+            // Перевірка, чи введені числові значення
+            if (isNaN(value1) || isNaN(value2)) {
+                alert("Будь ласка, введіть числові значення.");
+                return;
+            }
+
+            var mdz = Math.floor(value1 / 4);
+            var bzt = value1 - mdz;
+            var tz = Math.floor(value2 / 3);
+            var ps = value2 - tz;
+            var result = "";
+
+            if (destroyedTarget) {
+                result += `Ціль БПЛА типу Shahed знищено. `;
+            } else {
+                result += `Обстріляно ціль БПЛА типу Shahed. Результат ураження уточнюється. `;
+            }
+
+            if (value1 !== 0) {
+                result += `Використано БК: ЗК Victor 14.5 = <span class="text-gray-500">${value1} шт</span> (в т.ч. БЗТ-${mdz} шт, МДЗ-${bzt} шт), `;
+            }
+
+            if (value2 !== 0) {
+                result += `АК-74 5.45 = <span class="text-gray-500">${value2} шт</span> (в т.ч. ТЗ-${tz} шт, ПС-${ps} шт)`;
+            }
+
+            document.getElementById('result').innerHTML = result;
+        }
+
+        function copyResult() {
+            var resultText = document.getElementById('result').textContent;
+            navigator.clipboard.writeText(resultText).then(function() {
+                alert("Результат скопійовано у буфер обміну!");
+            }, function(err) {
+                console.error('Не вдалося скопіювати результат: ', err);
+            });
+        }
+    </script>
+</body>
+
+</html>
