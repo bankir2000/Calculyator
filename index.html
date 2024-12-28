@@ -11,63 +11,68 @@
     <!-- Посилання на маніфест -->
     <link rel="manifest" href="manifest.json">
     <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 10px;
+        padding: 0;
+        font-size: 1.2rem; /* Загальний розмір шрифту */
+        line-height: 1.6; /* Збільшений інтерліньяж */
+    }
+    h1, h2 {
+        font-size: 1.5rem; /* Збільшення заголовків */
+        text-align: center;
+    }
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    label {
+        font-size: 1.2rem; /* Збільшення розміру шрифту для підписів */
+        margin-bottom: 5px;
+    }
+    input, select, button {
+        font-size: 1.2rem; /* Збільшення розміру тексту у формах */
+        padding: 12px; /* Збільшення полів для введення */
+        margin-bottom: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    #results {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        white-space: pre-wrap;
+        font-size: 1.5rem; /* Збільшений розмір тексту результатів */
+        line-height: 1.6; /* Інтерліньяж для читабельності */
+    }
+    @media (max-width: 480px) {
         body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
-            padding: 0;
+            font-size: 1.3rem; /* Ще більше збільшення для маленьких екранів */
         }
         h1, h2 {
-            font-size: 1.2rem;
-            text-align: center;
+            font-size: 1.4rem;
         }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
-        }
-        label {
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-        input, select, button {
-            font-size: 1rem;
-            padding: 8px;
-            margin-bottom: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
+        label, input, select, button {
+            font-size: 1.3rem;
         }
         #results {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            white-space: pre-wrap;
-            font-size: 1.5rem; /* Збільшений розмір тексту */
-            line-height: 1.5; /* Інтерліньяж для зручності читання */
+            font-size: 1.4rem;
         }
-        @media (max-width: 480px) {
-            h1, h2 {
-                font-size: 1rem;
-            }
-            label, input, select, button {
-                font-size: 0.9rem;
-            }
-            #results {
-                font-size: 1.2rem; /* Трохи зменшено текст для маленьких екранів */
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <h1>Форма введення та аналізу даних</h1>
