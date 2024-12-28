@@ -4,86 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Збереження і відображення даних</title>
-    <!-- Мета теги для PWA -->
     <meta name="description" content="Програма для збереження і обробки даних">
     <meta name="theme-color" content="#333333">
-    
-    <!-- Посилання на маніфест -->
     <link rel="manifest" href="manifest.json">
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 10px;
-        padding: 0;
-        font-size: 1.2rem; /* Загальний розмір шрифту */
-        line-height: 1.6; /* Збільшений інтерліньяж */
-    }
-    h1, h2 {
-        font-size: 1.5rem; /* Збільшення заголовків */
-        text-align: center;
-    }
-    .input-group {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
-    }
-    label {
-        font-size: 1.2rem; /* Збільшення розміру шрифту для підписів */
-        margin-bottom: 5px;
-    }
-    input, select, button {
-        font-size: 1.2rem; /* Збільшення розміру тексту у формах */
-        padding: 12px; /* Збільшення полів для введення */
-        margin-bottom: 5px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        width: 100%;
-    }
-    button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #45a049;
-    }
-    #results {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #f9f9f9;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        white-space: pre-wrap;
-        font-size: 1.5rem; /* Збільшений розмір тексту результатів */
-        line-height: 1.6; /* Інтерліньяж для читабельності */
-    }
-    @media (max-width: 480px) {
         body {
-            font-size: 1.3rem; /* Ще більше збільшення для маленьких екранів */
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            padding: 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
         }
         h1, h2 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+            text-align: center;
         }
-        label, input, select, button {
-            font-size: 1.3rem;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            font-size: 1.2rem;
+            padding: 12px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
         }
         #results {
-            font-size: 1.4rem;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-size: 1.5rem;
+            line-height: 1.6;
         }
-    }
-</style>
+        @media (max-width: 480px) {
+            body {
+                font-size: 1.3rem;
+            }
+            h1, h2 {
+                font-size: 1.4rem;
+            }
+            label, input, select, button {
+                font-size: 1.3rem;
+            }
+            #results {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Форма введення та аналізу даних</h1>
 
-    <!-- Поле введення екіпажу -->
     <div class="input-group">
         <label for="crew-input">Екіпаж:</label>
         <input type="text" id="crew-input" oninput="saveCrewText()">
     </div>
 
-    <!-- Поле для вибору ОВП -->
     <div class="input-group">
         <label for="ovp-select">Оберіть ОВП:</label>
         <select id="ovp-select" onchange="saveOvpSelection()">
@@ -98,7 +93,6 @@
         </select>
     </div>
 
-    <!-- Поля введення тексту -->
     <div id="data-container">
         <h2>Дані:</h2>
         <div class="input-group">
@@ -140,7 +134,6 @@
         <button onclick="processResults()">Обробити</button>
     </div>
 
-    <!-- Виведення результатів -->
     <div id="results" class="result-group"></div>
     <button id="copy-button" onclick="copyResults()" style="display: none;">Скопіювати результати</button>
 
@@ -227,11 +220,15 @@
 
             let resultText = `${crewText} (${ovpSelection})\n`;
 
-            resultText += "На БЧ:\n";
-            resultText += БЧ.length ? БЧ.join("\n") + "\n" : "Немає даних\n";
+            if (БЧ.length) {
+                resultText += "На БЧ:\n";
+                resultText += БЧ.join("\n") + "\n";
+            }
 
-            resultText += "На ППД:\n";
-            resultText += ППД.length ? ППД.join("\n") + "\n" : "Немає даних\n";
+            if (ППД.length) {
+                resultText += "На ППД:\n";
+                resultText += ППД.join("\n") + "\n";
+            }
 
             if (Відсутній.length) {
                 resultText += "Відсутній:\n";
