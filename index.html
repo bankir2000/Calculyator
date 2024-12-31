@@ -234,7 +234,9 @@
                 resultText += "Відсутній:\n";
                 resultText += Відсутній.join("\n") + "\n";
             }
-
+// Додавання тексту "4.5.0" в кінці результату
+            resultText += "4.5.0";
+            
             const resultsContainer = document.getElementById("results");
             resultsContainer.innerHTML = `<pre>${resultText.trim()}</pre>`;
             document.getElementById("copy-button").style.display = "block";
