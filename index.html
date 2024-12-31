@@ -6,7 +6,6 @@
     <title>Збереження і відображення даних</title>
     <meta name="description" content="Програма для збереження і обробки даних">
     <meta name="theme-color" content="#333333">
-    <link rel="manifest" href="manifest.json">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,6 +54,14 @@
             font-size: 1.5rem;
             line-height: 1.6;
         }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox-container input {
+            margin-right: 10px;
+        }
         @media (max-width: 480px) {
             body {
                 font-size: 1.3rem;
@@ -77,12 +84,16 @@
     <div class="input-group">
         <label for="crew-input">Екіпаж:</label>
         <input type="text" id="crew-input" oninput="saveCrewText()">
+        <div class="checkbox-container">
+            <input type="checkbox" id="shift-complete">
+            <label for="shift-complete">Завершив чергування</label>
+        </div>
     </div>
 
     <div class="input-group">
         <label for="ovp-select">Виїзд на позицію:</label>
         <select id="ovp-select" onchange="saveOvpSelection()">
-           <option value=""> </option>
+            <option value=""> </option>
             <option value="ОВП">ОВП</option>
             <option value="ЗВП-1">ЗВП-1</option>
             <option value="ЗВП-2">ЗВП-2</option>
@@ -199,34 +210,40 @@
                 document.getElementById("text4-input").value
             ];
             const selections = Array.from(document.querySelectorAll(".selection")).map(select => select.value);
+            const isShiftComplete = document.getElementById("shift-complete").checked;
 
-            const БЧ = [];
-            const ППД = [];
+            let resultText = "";
 
-            textInputs.forEach((text, index) => {
-                const selection = selections[index];
-                if (selection === "БЧ") {
-                    БЧ.push(text);
-                } else if (selection === "ППД") {
-                    ППД.push(text);
+            if (isShiftComplete) {
+                resultText = `${crewText} завершив чергування`;
+            } else {
+                const БЧ = [];
+                const ППД = [];
+
+                textInputs.forEach((text, index) => {
+                    const selection = selections[index];
+                    if (selection === "БЧ") {
+                        БЧ.push(text);
+                    } else if (selection === "ППД") {
+                        ППД.push(text);
+                    }
+                });
+
+                resultText = `${crewText} (${ovpSelection})\n`;
+
+                if (БЧ.length) {
+                    resultText += "На БЧ:\n";
+                    resultText += БЧ.join("\n") + "\n";
                 }
-            });
 
-            let resultText = `${crewText} (${ovpSelection})\n`;
+                if (ППД.length) {
+                    resultText += "На ППД:\n";
+                    resultText += ППД.join("\n") + "\n";
+                }
 
-            if (БЧ.length) {
-                resultText += "На БЧ:\n";
-                resultText += БЧ.join("\n") + "\n";
+                resultText += "4.5.0";
             }
 
-            if (ППД.length) {
-                resultText += "На ППД:\n";
-                resultText += ППД.join("\n") + "\n";
-            }
-
-// Додавання тексту "4.5.0" в кінці результату
-            resultText += "4.5.0";
-            
             const resultsContainer = document.getElementById("results");
             resultsContainer.innerHTML = `<pre>${resultText.trim()}</pre>`;
             document.getElementById("copy-button").style.display = "block";
