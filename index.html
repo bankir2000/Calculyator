@@ -2,263 +2,952 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Збереження і відображення даних</title>
-    <meta name="description" content="Програма для збереження і обробки даних">
-    <meta name="theme-color" content="#333333">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🇺🇦 Облік боргів (планшет)</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
+        * {
+            margin: 0;
             padding: 0;
-            font-size: 1.2rem;
-            line-height: 1.6;
+            box-sizing: border-box;
+            font-family: 'Courier New', 'Roboto Mono', monospace;
         }
-        h1, h2 {
-            font-size: 1.5rem;
-            text-align: center;
+        
+        body {
+            background: #2d5a27;
+            background-image: 
+                radial-gradient(circle at 30% 40%, #3b6e33 0%, #2d5a27 40%),
+                radial-gradient(circle at 70% 60%, #4a7a3a 0%, #2d5a27 70%);
+            min-height: 100vh;
+            padding: 15px;
+            position: relative;
         }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
-        }
-        label {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-        input, select, button {
-            font-size: 1.2rem;
-            padding: 12px;
-            margin-bottom: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(70, 100, 50, 0.3) 5%, transparent 15%),
+                radial-gradient(circle at 90% 70%, rgba(40, 60, 30, 0.4) 8%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(90, 120, 60, 0.3) 10%, transparent 25%),
+                radial-gradient(circle at 80% 30%, rgba(30, 50, 20, 0.5) 7%, transparent 18%);
+            pointer-events: none;
+            z-index: 1;
         }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(30, 40, 20, 0.9);
+            backdrop-filter: blur(3px);
+            border: 3px solid #6b8e4c;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7), inset 0 0 20px rgba(150, 200, 100, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
         }
-        button:hover {
-            background-color: #45a049;
+        
+        header {
+            background: linear-gradient(135deg, #3f5130 0%, #1e2b16 100%);
+            color: #e6e6b3;
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 2px solid #8b5a2b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #9cb071;
         }
-        #results {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            white-space: pre-wrap;
-            font-size: 1.5rem;
-            line-height: 1.6;
-        }
-        .checkbox-container {
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        header h1::before {
+            content: '⚔️';
+            font-size: 1.2em;
+        }
+        
+        header h1::after {
+            content: '🛡️';
+            font-size: 1.2em;
+        }
+        
+        .total-amount {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: #1f2a14;
+            padding: 12px 30px;
+            border-radius: 40px;
+            display: inline-block;
             margin-top: 10px;
+            border: 2px solid #b8860b;
+            box-shadow: 0 0 15px #8b5a2b;
+            color: #f0e68c;
+            letter-spacing: 1px;
         }
-        .checkbox-container input {
-            margin-right: 10px;
+        
+        .add-form {
+            background: #26381f;
+            padding: 20px;
+            border-bottom: 3px solid #7a5c2e;
+            background-image: linear-gradient(45deg, rgba(60, 80, 40, 0.5) 25%, transparent 25%),
+                              linear-gradient(-45deg, rgba(60, 80, 40, 0.5) 25%, transparent 25%);
+            background-size: 30px 30px;
         }
-        @media (max-width: 480px) {
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            align-items: end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 5px;
+            color: #e6d5a8;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 3px black;
+        }
+        
+        .form-group input {
+            padding: 12px 12px;
+            background: #2e3b22;
+            border: 2px solid #7f6b3d;
+            border-radius: 10px;
+            font-size: 1em;
+            color: #f0e6c5;
+            font-weight: 500;
+            transition: all 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #ca9e1b;
+            box-shadow: 0 0 15px #f0b823;
+            background: #3f5130;
+        }
+        
+        .form-group input::placeholder {
+            color: #8b9a7a;
+            font-style: italic;
+        }
+        
+        .btn-add {
+            background: linear-gradient(135deg, #6f8745 0%, #3f552b 100%);
+            color: #faf3d7;
+            border: 2px solid #b9973a;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            height: 48px;
+            margin-top: 20px;
+            box-shadow: 0 4px 0 #2d401d;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #2d401d, 0 0 20px #f5cb5c;
+            background: linear-gradient(135deg, #829e4f 0%, #4f6a36 100%);
+        }
+        
+        .btn-add:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #2d401d;
+        }
+        
+        .table-container {
+            padding: 15px;
+            overflow-x: auto;
+            background: rgba(20, 30, 10, 0.8);
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            border: 2px solid #5c7a3a;
+            min-width: 900px;
+        }
+        
+        th {
+            background: #2e4523;
+            color: #f5e5b9;
+            font-weight: 700;
+            padding: 12px 8px;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid #6b8e4c;
+            text-shadow: 0 0 3px black;
+        }
+        
+        td {
+            padding: 12px 8px;
+            border: 1px solid #5c733a;
+            color: #e2dbb0;
+            background: rgba(40, 55, 30, 0.9);
+            font-size: 0.95em;
+            vertical-align: top;
+        }
+        
+        tr:hover td {
+            background: rgba(70, 95, 50, 0.95);
+            transition: 0.2s;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        
+        .status-active {
+            background: #4a6130;
+            color: #f9f3d9;
+            border: 1px solid #aab27a;
+        }
+        
+        .status-partial {
+            background: #8b7355;
+            color: #fff3d1;
+            border: 1px solid #ca9e5a;
+        }
+        
+        .status-overdue {
+            background: #5e2e2e;
+            color: #ffcaca;
+            border: 1px solid #c44f4f;
+            animation: blink 1.5s infinite;
+        }
+        
+        .status-returned {
+            background: #2d4b2d;
+            color: #b8f3b8;
+            border: 1px solid #7db37d;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; background: #6b2b2b; }
+            50% { opacity: 0.8; background: #9f4b4b; box-shadow: 0 0 10px red; }
+            100% { opacity: 1; background: #6b2b2b; }
+        }
+        
+        .btn-delete {
+            background: #3e2e1f;
+            color: #f0c0a0;
+            border: 2px solid #8b5a2b;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 0.8em;
+            margin-left: 3px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .btn-delete:hover {
+            background: #6b3f1f;
+            color: white;
+            border-color: #d98c2e;
+            transform: scale(1.05);
+        }
+        
+        .btn-return {
+            background: #2f4f2f;
+            color: #e2f0c0;
+            border: 2px solid #5c8c5c;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 0.8em;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .btn-return:hover {
+            background: #3f6f3f;
+            border-color: #9fdf9f;
+            transform: scale(1.05);
+        }
+        
+        .btn-partial {
+            background: #8b6b4b;
+            color: #fff0d0;
+            border: 2px solid #ca9e6b;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 0.8em;
+            margin-right: 3px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .btn-partial:hover {
+            background: #a88b5a;
+            border-color: #f0b87b;
+            transform: scale(1.05);
+        }
+        
+        .btn-view-payments {
+            background: #4f6b8b;
+            color: #d0e0ff;
+            border: 2px solid #6b8caa;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            font-size: 0.8em;
+            margin-right: 3px;
+        }
+        
+        .btn-view-payments:hover {
+            background: #6b8caa;
+            border-color: #aac9ff;
+        }
+        
+        .payments-list {
+            font-size: 0.85em;
+            margin-top: 5px;
+            max-height: 100px;
+            overflow-y: auto;
+            background: rgba(20, 30, 10, 0.5);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .payment-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 2px 5px;
+            border-bottom: 1px solid #5c733a;
+        }
+        
+        .footer-info {
+            background: #1e2b16;
+            color: #bbaa77;
+            padding: 15px 20px;
+            text-align: center;
+            border-top: 2px solid #7a5c2e;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .military-tag {
+            display: inline-block;
+            background: #3f4f2b;
+            padding: 3px 15px;
+            border-radius: 30px;
+            border: 1px solid #b9973a;
+            color: #efe8c5;
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+        
+        .clear-data-btn {
+            background: #4a3e2b;
+            color: #f0dbb0;
+            border: 2px solid #8b7355;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .clear-data-btn:hover {
+            background: #6b5535;
+            border-color: #ca9e5a;
+        }
+        
+        .remaining-amount {
+            font-size: 0.9em;
+            color: #f0e68c;
+            margin-top: 3px;
+        }
+        
+        /* Модальне вікно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: #26381f;
+            margin: 10% auto;
+            padding: 25px;
+            border: 3px solid #b9973a;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            color: #e6d5a8;
+            box-shadow: 0 0 30px #000;
+        }
+        
+        .modal h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #2e3b22;
+            border: 2px solid #7f6b3d;
+            border-radius: 10px;
+            color: #f0e6c5;
+            font-size: 1em;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .modal-btn.save {
+            background: #2f4f2f;
+            color: #e2f0c0;
+            border: 2px solid #5c8c5c;
+        }
+        
+        .modal-btn.cancel {
+            background: #4f2f2f;
+            color: #f0c0c0;
+            border: 2px solid #8c5c5c;
+        }
+        
+        @media (max-width: 900px) {
             body {
-                font-size: 1.3rem;
+                padding: 10px;
             }
-            h1, h2 {
-                font-size: 1.4rem;
+            
+            header h1 {
+                font-size: 1.6em;
             }
-            label, input, select, button {
-                font-size: 1.3rem;
+            
+            .total-amount {
+                font-size: 1.5em;
+                padding: 10px 20px;
             }
-            #results {
-                font-size: 1.4rem;
+            
+            .form-row {
+                grid-template-columns: 1fr 1fr;
             }
+            
+            .btn-add {
+                grid-column: span 2;
+                margin-top: 5px;
+            }
+            
+            td, th {
+                padding: 8px 4px;
+                font-size: 0.85em;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-add {
+                grid-column: span 1;
+            }
+            
+            .footer-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .btn-add, .btn-return, .btn-delete, .btn-partial {
+            min-height: 40px;
+            min-width: 40px;
         }
     </style>
 </head>
 <body>
-    <h1>Форма введення та аналізу даних</h1>
+    <div class="container">
+        <header>
+            <h1>ОБЛІК БОРГІВ</h1>
+            <div class="military-tag">Позики</div>
+            <div class="total-amount" id="totalAmount">0 грн</div>
+        </header>
 
-    <div class="input-group">
-        <label for="crew-input">Екіпаж:</label>
-        <input type="text" id="crew-input" oninput="saveCrewText()">
-        <div class="checkbox-container">
-            <input type="checkbox" id="shift-complete">
-            <label for="shift-complete">Завершив чергування</label>
+        <div class="add-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>ПІБ боржника</label>
+                    <input type="text" id="pib" placeholder="Прізвище І.Б.">
+                </div>
+                <div class="form-group">
+                    <label>Дата позики</label>
+                    <input type="date" id="loanDate">
+                </div>
+                <div class="form-group">
+                    <label>Сума боргу (грн)</label>
+                    <input type="number" id="amount" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label>Повернути до</label>
+                    <input type="date" id="deadline">
+                </div>
+                <button class="btn-add" id="addBtn">+ Додати</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="debtsTable">
+                <thead>
+                    <tr>
+                        <th>ПІБ</th>
+                        <th>Дата позики</th>
+                        <th>Сума</th>
+                        <th>Залишок</th>
+                        <th>Повернути до</th>
+                        <th>Статус</th>
+                        <th>Внески</th>
+                        <th>Дії</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Дані будуть додаватись сюди -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer-info">
+            <span id="recordCount">0 записів</span>
+            <span id="overdueCount">0 прострочено</span>
+            <span id="totalPaid">Повернено: 0 грн</span>
+            <button class="clear-data-btn" id="clearDataBtn">Очистити всі дані</button>
+            <span class="military-tag">🇺🇦</span>
         </div>
     </div>
 
-    <div class="input-group">
-        <label for="ovp-select">Виїзд на позицію:</label>
-        <select id="ovp-select" onchange="saveOvpSelection()">
-            <option value=""> </option>
-            <option value="ОВП">ОВП</option>
-            <option value="ЗВП-1">ЗВП-1</option>
-            <option value="ЗВП-2">ЗВП-2</option>
-            <option value="ЗВП-3">ЗВП-3</option>
-            <option value="ЗВП-4">ЗВП-4</option>
-            <option value="ЗВП-5">ЗВП-5</option>
-            <option value="ЗВП-6">ЗВП-6</option>
-            <option value="Сосновий Бір">Сосновий Бір</option>
-        </select>
+    <!-- Модальне вікно для часткового внеску -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h3>Додати часткове повернення</h3>
+            <p id="modalDebtInfo"></p>
+            <label>Дата повернення:</label>
+            <input type="date" id="paymentDate" class="modal-input" value="">
+            <label>Сума (грн):</label>
+            <input type="number" id="paymentAmount" class="modal-input" placeholder="0" min="1">
+            <div class="modal-buttons">
+                <button class="modal-btn save" id="savePaymentBtn">Зберегти</button>
+                <button class="modal-btn cancel" id="cancelPaymentBtn">Скасувати</button>
+            </div>
+        </div>
     </div>
-
-    <div id="data-container">
-        <h2>Дані:</h2>
-        <div class="input-group">
-            <label for="text1-input">Текст 1:</label>
-            <input type="text" id="text1-input" oninput="saveTextFields()">
-            <select class="selection" onchange="saveSelections()">
-                <option value="БЧ">БЧ</option>
-                <option value="ППД">ППД</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="text2-input">Текст 2:</label>
-            <input type="text" id="text2-input" oninput="saveTextFields()">
-            <select class="selection" onchange="saveSelections()">
-                <option value="БЧ">БЧ</option>
-                <option value="ППД">ППД</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="text3-input">Текст 3:</label>
-            <input type="text" id="text3-input" oninput="saveTextFields()">
-            <select class="selection" onchange="saveSelections()">
-                <option value="БЧ">БЧ</option>
-                <option value="ППД">ППД</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label for="text4-input">Текст 4:</label>
-            <input type="text" id="text4-input" oninput="saveTextFields()">
-            <select class="selection" onchange="saveSelections()">
-                <option value="БЧ">БЧ</option>
-                <option value="ППД">ППД</option>
-            </select>
-        </div>
-        <button onclick="processResults()">Обробити</button>
-    </div>
-
-    <div id="results" class="result-group"></div>
-    <button id="copy-button" onclick="copyResults()" style="display: none;">Скопіювати результати</button>
 
     <script>
-        window.onload = function() {
-            const savedCrewText = localStorage.getItem("crewText");
-            const savedOvpSelection = localStorage.getItem("ovpSelection");
-            const savedTextFields = JSON.parse(localStorage.getItem("textFields"));
-            const savedSelections = JSON.parse(localStorage.getItem("selections"));
+        // Функція для завантаження даних
+        function loadDebts() {
+            const saved = localStorage.getItem('tabletDebtsMultiple');
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            // Якщо немає збережених даних, повертаємо приклад
+            return [
+                {
+                    pib: 'Шевченко Т.Г.',
+                    loanDate: '2026-03-01',
+                    amount: 1500,
+                    payments: [
+                        { date: '2026-03-10', amount: 500 },
+                        { date: '2026-03-15', amount: 300 }
+                    ],
+                    deadline: '2026-03-20',
+                    returned: false
+                },
+                {
+                    pib: 'Франко І.Я.',
+                    loanDate: '2026-02-15',
+                    amount: 800,
+                    payments: [
+                        { date: '2026-02-20', amount: 300 },
+                        { date: '2026-02-28', amount: 500 }
+                    ],
+                    deadline: '2026-03-05',
+                    returned: true
+                },
+                {
+                    pib: 'Леся Українка',
+                    loanDate: '2026-03-10',
+                    amount: 2200,
+                    payments: [],
+                    deadline: '2026-03-30',
+                    returned: false
+                }
+            ];
+        }
 
-            if (savedCrewText) {
-                document.getElementById("crew-input").value = savedCrewText;
+        // Завантажуємо дані
+        let debts = loadDebts();
+        let currentPaymentIndex = -1; // Індекс боргу для поточного внеску
+
+        // Елементи DOM
+        const tableBody = document.getElementById('tableBody');
+        const totalAmountSpan = document.getElementById('totalAmount');
+        const recordCountSpan = document.getElementById('recordCount');
+        const overdueCountSpan = document.getElementById('overdueCount');
+        const totalPaidSpan = document.getElementById('totalPaid');
+        const clearDataBtn = document.getElementById('clearDataBtn');
+        
+        // Модальне вікно
+        const modal = document.getElementById('paymentModal');
+        const modalDebtInfo = document.getElementById('modalDebtInfo');
+        const paymentDate = document.getElementById('paymentDate');
+        const paymentAmount = document.getElementById('paymentAmount');
+        const savePaymentBtn = document.getElementById('savePaymentBtn');
+        const cancelPaymentBtn = document.getElementById('cancelPaymentBtn');
+
+        // Встановлюємо сьогоднішню дату за замовчуванням
+        function setDefaultDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Функція форматування дати
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('uk-UA', options);
+        }
+
+        // Функція визначення статусу
+        function getStatus(deadline, returned, amount, payments) {
+            if (returned) return { text: 'Повернуто', class: 'status-returned' };
+            
+            const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
+            const remaining = amount - totalPaid;
+            
+            if (remaining <= 0) return { text: 'Повернуто', class: 'status-returned' };
+            
+            if (totalPaid > 0) {
+                if (!deadline) return { text: 'Частково', class: 'status-partial' };
+                
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const deadlineDate = new Date(deadline);
+                deadlineDate.setHours(0, 0, 0, 0);
+                
+                if (deadlineDate < today) {
+                    return { text: '⚠️ Прострочено', class: 'status-overdue' };
+                }
+                return { text: 'Частково', class: 'status-partial' };
+            }
+            
+            if (!deadline) return { text: 'Активно', class: 'status-active' };
+            
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const deadlineDate = new Date(deadline);
+            deadlineDate.setHours(0, 0, 0, 0);
+            
+            if (deadlineDate < today) {
+                return { text: '⚠️ Прострочено', class: 'status-overdue' };
+            }
+            return { text: 'Активно', class: 'status-active' };
+        }
+
+        // Функція для відкриття модального вікна
+        window.openPaymentModal = (index) => {
+            const debt = debts[index];
+            if (!debt) return;
+            
+            const totalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
+            const remaining = debt.amount - totalPaid;
+            
+            if (remaining <= 0) {
+                alert('Борг вже повністю повернуто!');
+                return;
+            }
+            
+            currentPaymentIndex = index;
+            modalDebtInfo.innerText = `${debt.pib} - залишок: ${remaining} грн`;
+            paymentDate.value = setDefaultDate();
+            paymentAmount.value = '';
+            modal.style.display = 'block';
+        };
+
+        // Збереження платежу
+        savePaymentBtn.addEventListener('click', () => {
+            if (currentPaymentIndex === -1) return;
+            
+            const debt = debts[currentPaymentIndex];
+            const date = paymentDate.value;
+            const amount = parseFloat(paymentAmount.value);
+            
+            if (!date) {
+                alert('Виберіть дату повернення!');
+                return;
+            }
+            
+            if (!amount || amount <= 0) {
+                alert('Введіть коректну суму!');
+                return;
+            }
+            
+            const totalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
+            const remaining = debt.amount - totalPaid;
+            
+            if (amount > remaining) {
+                alert(`Сума не може перевищувати залишок (${remaining} грн)!`);
+                return;
+            }
+            
+            // Додаємо платіж
+            if (!debt.payments) {
+                debt.payments = [];
+            }
+            
+            debt.payments.push({
+                date: date,
+                amount: amount
+            });
+            
+            // Сортуємо платежі за датою
+            debt.payments.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            // Перевіряємо чи повністю повернуто
+            const newTotalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
+            if (newTotalPaid >= debt.amount) {
+                debt.returned = true;
+            }
+            
+            modal.style.display = 'none';
+            currentPaymentIndex = -1;
+            renderTable();
+        });
+
+        // Скасування
+        cancelPaymentBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            currentPaymentIndex = -1;
+        });
+
+        // Закриття модального вікна при кліку поза ним
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                currentPaymentIndex = -1;
+            }
+        });
+
+        // Оновлення таблиці та підсумків
+        function renderTable() {
+            let totalBorrowed = 0;
+            let totalPaidSum = 0;
+            let overdue = 0;
+            let rows = '';
+
+            debts.forEach((debt, index) => {
+                const payments = debt.payments || [];
+                const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
+                const remaining = debt.amount - totalPaid;
+                
+                totalBorrowed += debt.amount;
+                totalPaidSum += totalPaid;
+                
+                const status = getStatus(debt.deadline, debt.returned, debt.amount, payments);
+                if (status.class === 'status-overdue' && !debt.returned && remaining > 0) overdue++;
+                
+                // Форматування списку платежів
+                let paymentsHtml = '';
+                if (payments.length > 0) {
+                    paymentsHtml = '<div class="payments-list">';
+                    payments.forEach(p => {
+                        paymentsHtml += `<div class="payment-item">
+                            <span>${formatDate(p.date)}</span>
+                            <span>${p.amount.toLocaleString()} грн</span>
+                        </div>`;
+                    });
+                    paymentsHtml += '</div>';
+                } else {
+                    paymentsHtml = '<span style="color: #8b9a7a;">Немає внесків</span>';
+                }
+                
+                // Дії
+                let actions = '';
+                if (!debt.returned && remaining > 0) {
+                    actions = `
+                        <div style="display: flex; flex-wrap: wrap; gap: 3px; align-items: center;">
+                            <button class="btn-partial" onclick="openPaymentModal(${index})">+ Внести</button>
+                            <button class="btn-return" onclick="markAsReturned(${index})">Повністю</button>
+                            <button class="btn-delete" onclick="deleteDebt(${index})">✖</button>
+                        </div>
+                    `;
+                } else {
+                    actions = `<button class="btn-delete" onclick="deleteDebt(${index})">✖</button>`;
+                }
+                
+                rows += `<tr>
+                    <td><strong>${debt.pib || 'Без імені'}</strong></td>
+                    <td>${formatDate(debt.loanDate)}</td>
+                    <td>${debt.amount.toLocaleString()} грн</td>
+                    <td>
+                        <strong>${remaining.toLocaleString()} грн</strong>
+                        ${totalPaid > 0 ? `<div class="remaining-amount">(повернено ${totalPaid.toLocaleString()})</div>` : ''}
+                    </td>
+                    <td>${formatDate(debt.deadline)}</td>
+                    <td><span class="status-badge ${status.class}">${status.text}</span></td>
+                    <td>${paymentsHtml}</td>
+                    <td>${actions}</td>
+                </tr>`;
+            });
+
+            tableBody.innerHTML = rows;
+            totalAmountSpan.innerText = totalBorrowed.toLocaleString() + ' грн';
+            recordCountSpan.innerText = debts.length + ' записів';
+            overdueCountSpan.innerText = overdue + ' прострочено';
+            totalPaidSpan.innerText = `Повернено: ${totalPaidSum.toLocaleString()} грн`;
+
+            // Збереження в localStorage
+            localStorage.setItem('tabletDebtsMultiple', JSON.stringify(debts));
+        }
+
+        // Додавання нового боргу
+        document.getElementById('addBtn').addEventListener('click', () => {
+            const pib = document.getElementById('pib').value.trim();
+            const loanDate = document.getElementById('loanDate').value;
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const deadline = document.getElementById('deadline').value;
+
+            if (!pib || !loanDate) {
+                alert('Будь ласка, заповніть ПІБ та дату позики!');
+                return;
             }
 
-            if (savedOvpSelection) {
-                document.getElementById("ovp-select").value = savedOvpSelection;
+            if (amount <= 0) {
+                alert('Сума має бути більше 0!');
+                return;
             }
 
-            if (savedTextFields) {
-                document.getElementById("text1-input").value = savedTextFields[0] || "";
-                document.getElementById("text2-input").value = savedTextFields[1] || "";
-                document.getElementById("text3-input").value = savedTextFields[2] || "";
-                document.getElementById("text4-input").value = savedTextFields[3] || "";
-            }
+            const newDebt = {
+                pib,
+                loanDate,
+                amount,
+                payments: [],
+                deadline: deadline || null,
+                returned: false
+            };
 
-            if (savedSelections) {
-                const selections = document.querySelectorAll(".selection");
-                selections.forEach((select, index) => {
-                    select.value = savedSelections[index] || "БЧ";
-                });
+            debts.push(newDebt);
+            renderTable();
+
+            // Очищення форми
+            document.getElementById('pib').value = '';
+            document.getElementById('loanDate').value = '';
+            document.getElementById('amount').value = '';
+            document.getElementById('deadline').value = '';
+        });
+
+        // Позначити як повністю повернуто
+        window.markAsReturned = (index) => {
+            if (debts[index]) {
+                const debt = debts[index];
+                debt.returned = true;
+                // Додаємо платіж на всю суму, якщо ще не повернуто
+                const totalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
+                if (totalPaid < debt.amount) {
+                    debt.payments.push({
+                        date: setDefaultDate(),
+                        amount: debt.amount - totalPaid
+                    });
+                }
+                renderTable();
             }
         };
 
-        function saveCrewText() {
-            const crewText = document.getElementById("crew-input").value;
-            localStorage.setItem("crewText", crewText);
-        }
-
-        function saveOvpSelection() {
-            const ovpSelection = document.getElementById("ovp-select").value;
-            localStorage.setItem("ovpSelection", ovpSelection);
-        }
-
-        function saveTextFields() {
-            const textFields = [
-                document.getElementById("text1-input").value,
-                document.getElementById("text2-input").value,
-                document.getElementById("text3-input").value,
-                document.getElementById("text4-input").value
-            ];
-            localStorage.setItem("textFields", JSON.stringify(textFields));
-        }
-
-        function saveSelections() {
-            const selections = Array.from(document.querySelectorAll(".selection")).map(select => select.value);
-            localStorage.setItem("selections", JSON.stringify(selections));
-        }
-
-        function processResults() {
-            const crewText = localStorage.getItem("crewText") || "";
-            const ovpSelection = localStorage.getItem("ovpSelection") || "";
-            const textInputs = [
-                document.getElementById("text1-input").value,
-                document.getElementById("text2-input").value,
-                document.getElementById("text3-input").value,
-                document.getElementById("text4-input").value
-            ];
-            const selections = Array.from(document.querySelectorAll(".selection")).map(select => select.value);
-            const isShiftComplete = document.getElementById("shift-complete").checked;
-
-            let resultText = "";
-
-            if (isShiftComplete) {
-                resultText = `${crewText} завершив чергування`;
-            } else {
-                const БЧ = [];
-                const ППД = [];
-
-                textInputs.forEach((text, index) => {
-                    const selection = selections[index];
-                    if (selection === "БЧ") {
-                        БЧ.push(text);
-                    } else if (selection === "ППД") {
-                        ППД.push(text);
-                    }
-                });
-
-                resultText = `${crewText} (${ovpSelection})\n`;
-
-                if (БЧ.length) {
-                    resultText += "На БЧ:\n";
-                    resultText += БЧ.join("\n") + "\n";
-                }
-
-                if (ППД.length) {
-                    resultText += "На ППД:\n";
-                    resultText += ППД.join("\n") + "\n";
-                }
-
-                resultText += "4.5.0";
+        // Видалити запис
+        window.deleteDebt = (index) => {
+            if (confirm('Видалити цей запис?')) {
+                debts.splice(index, 1);
+                renderTable();
             }
+        };
 
-            const resultsContainer = document.getElementById("results");
-            resultsContainer.innerHTML = `<pre>${resultText.trim()}</pre>`;
-            document.getElementById("copy-button").style.display = "block";
-        }
+        // Очистити всі дані
+        clearDataBtn.addEventListener('click', () => {
+            if (confirm('Видалити ВСІ записи? Цю дію не можна скасувати!')) {
+                debts = [];
+                renderTable();
+            }
+        });
 
-        function copyResults() {
-            const results = document.getElementById("results").innerText;
-            navigator.clipboard.writeText(results)
-                .then(() => {
-                    alert("Результати скопійовано у буфер обміну!");
-                })
-                .catch((err) => {
-                    alert("Помилка копіювання: " + err);
-                });
-        }
+        // Початковий рендер
+        renderTable();
     </script>
 </body>
 </html>
