@@ -586,6 +586,9 @@
             <span id="recordCount">0 записів</span>
             <span id="overdueCount">0 прострочено</span>
             <span id="totalPaid">Повернено: 0 грн</span>
+            <button class="clear-data-btn" id="exportBtn">📥 Експорт</button>
+            <button class="clear-data-btn" id="importBtn">📤 Імпорт</button>
+            <input type="file" id="importFile" accept=".json" style="display:none">
             <button class="clear-data-btn" id="clearDataBtn">Очистити всі дані</button>
             <span class="military-tag">🇺🇦</span>
         </div>
@@ -944,6 +947,50 @@
                 debts = [];
                 renderTable();
             }
+        });
+
+        // Експорт даних у JSON-файл
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const json = JSON.stringify(debts, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const today = new Date();
+            const dateStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+            a.href = url;
+            a.download = `борги_${dateStr}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Імпорт даних із JSON-файлу
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('importFile').click();
+        });
+
+        document.getElementById('importFile').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    const imported = JSON.parse(ev.target.result);
+                    if (!Array.isArray(imported)) throw new Error('Невірний формат');
+                    if (debts.length > 0) {
+                        if (!confirm(`Замінити поточні дані (${debts.length} записів) імпортованими (${imported.length} записів)?`)) {
+                            e.target.value = '';
+                            return;
+                        }
+                    }
+                    debts = imported;
+                    renderTable();
+                    alert(`✅ Імпортовано ${imported.length} записів!`);
+                } catch (err) {
+                    alert('❌ Помилка читання файлу. Перевірте, що це файл експорту боргів.');
+                }
+                e.target.value = '';
+            };
+            reader.readAsText(file);
         });
 
         // Початковий рендер
