@@ -25,15 +25,13 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(70, 100, 50, 0.3) 5%, transparent 15%),
-                radial-gradient(circle at 90% 70%, rgba(40, 60, 30, 0.4) 8%, transparent 20%),
-                radial-gradient(circle at 40% 80%, rgba(90, 120, 60, 0.3) 10%, transparent 25%),
-                radial-gradient(circle at 80% 30%, rgba(30, 50, 20, 0.5) 7%, transparent 18%);
+                radial-gradient(circle at 10% 20%, rgba(70,100,50,0.3) 5%, transparent 15%),
+                radial-gradient(circle at 90% 70%, rgba(40,60,30,0.4) 8%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(90,120,60,0.3) 10%, transparent 25%),
+                radial-gradient(circle at 80% 30%, rgba(30,50,20,0.5) 7%, transparent 18%);
             pointer-events: none;
             z-index: 1;
         }
@@ -41,11 +39,11 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(30, 40, 20, 0.9);
+            background: rgba(30,40,20,0.9);
             backdrop-filter: blur(3px);
             border: 3px solid #6b8e4c;
             border-radius: 20px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7), inset 0 0 20px rgba(150, 200, 100, 0.3);
+            box-shadow: 0 0 30px rgba(0,0,0,0.7), inset 0 0 20px rgba(150,200,100,0.3);
             overflow: hidden;
             position: relative;
             z-index: 10;
@@ -72,15 +70,8 @@
             flex-wrap: wrap;
         }
         
-        header h1::before {
-            content: '⚔️';
-            font-size: 1.2em;
-        }
-        
-        header h1::after {
-            content: '🛡️';
-            font-size: 1.2em;
-        }
+        header h1::before { content: '⚔️'; font-size: 1.2em; }
+        header h1::after  { content: '🛡️'; font-size: 1.2em; }
         
         .total-amount {
             font-size: 1.8em;
@@ -100,8 +91,8 @@
             background: #26381f;
             padding: 20px;
             border-bottom: 3px solid #7a5c2e;
-            background-image: linear-gradient(45deg, rgba(60, 80, 40, 0.5) 25%, transparent 25%),
-                              linear-gradient(-45deg, rgba(60, 80, 40, 0.5) 25%, transparent 25%);
+            background-image: linear-gradient(45deg, rgba(60,80,40,0.5) 25%, transparent 25%),
+                              linear-gradient(-45deg, rgba(60,80,40,0.5) 25%, transparent 25%);
             background-size: 30px 30px;
         }
         
@@ -128,7 +119,7 @@
         }
         
         .form-group input {
-            padding: 12px 12px;
+            padding: 12px;
             background: #2e3b22;
             border: 2px solid #7f6b3d;
             border-radius: 10px;
@@ -173,7 +164,6 @@
         .btn-add:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 0 #2d401d, 0 0 20px #f5cb5c;
-            background: linear-gradient(135deg, #829e4f 0%, #4f6a36 100%);
         }
         
         .btn-add:active {
@@ -184,7 +174,7 @@
         .table-container {
             padding: 15px;
             overflow-x: auto;
-            background: rgba(20, 30, 10, 0.8);
+            background: rgba(20,30,10,0.8);
             -webkit-overflow-scrolling: touch;
         }
         
@@ -193,7 +183,7 @@
             border-collapse: collapse;
             text-align: left;
             border: 2px solid #5c7a3a;
-            min-width: 900px;
+            min-width: 950px;
         }
         
         th {
@@ -212,13 +202,13 @@
             padding: 12px 8px;
             border: 1px solid #5c733a;
             color: #e2dbb0;
-            background: rgba(40, 55, 30, 0.9);
+            background: rgba(40,55,30,0.9);
             font-size: 0.95em;
             vertical-align: top;
         }
         
         tr:hover td {
-            background: rgba(70, 95, 50, 0.95);
+            background: rgba(70,95,50,0.95);
             transition: 0.2s;
         }
         
@@ -232,121 +222,61 @@
             white-space: nowrap;
         }
         
-        .status-active {
-            background: #4a6130;
-            color: #f9f3d9;
-            border: 1px solid #aab27a;
-        }
-        
-        .status-partial {
-            background: #8b7355;
-            color: #fff3d1;
-            border: 1px solid #ca9e5a;
-        }
-        
-        .status-overdue {
-            background: #5e2e2e;
-            color: #ffcaca;
-            border: 1px solid #c44f4f;
-            animation: blink 1.5s infinite;
-        }
-        
-        .status-returned {
-            background: #2d4b2d;
-            color: #b8f3b8;
-            border: 1px solid #7db37d;
-        }
+        .status-active   { background: #4a6130; color: #f9f3d9; border: 1px solid #aab27a; }
+        .status-partial  { background: #8b7355; color: #fff3d1; border: 1px solid #ca9e5a; }
+        .status-overdue  { background: #5e2e2e; color: #ffcaca; border: 1px solid #c44f4f; animation: blink 1.5s infinite; }
+        .status-returned { background: #2d4b2d; color: #b8f3b8; border: 1px solid #7db37d; }
         
         @keyframes blink {
-            0% { opacity: 1; background: #6b2b2b; }
-            50% { opacity: 0.8; background: #9f4b4b; box-shadow: 0 0 10px red; }
+            0%   { opacity: 1; background: #6b2b2b; }
+            50%  { opacity: 0.8; background: #9f4b4b; box-shadow: 0 0 10px red; }
             100% { opacity: 1; background: #6b2b2b; }
         }
         
         .btn-delete {
-            background: #3e2e1f;
-            color: #f0c0a0;
-            border: 2px solid #8b5a2b;
-            border-radius: 8px;
-            padding: 6px 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.8em;
-            margin-left: 3px;
+            background: #3e2e1f; color: #f0c0a0;
+            border: 2px solid #8b5a2b; border-radius: 8px;
+            padding: 6px 10px; cursor: pointer; font-weight: bold;
+            transition: 0.2s; font-size: 0.8em; margin-left: 3px;
             -webkit-tap-highlight-color: transparent;
         }
-        
-        .btn-delete:hover {
-            background: #6b3f1f;
-            color: white;
-            border-color: #d98c2e;
-            transform: scale(1.05);
-        }
+        .btn-delete:hover { background: #6b3f1f; color: white; border-color: #d98c2e; transform: scale(1.05); }
         
         .btn-return {
-            background: #2f4f2f;
-            color: #e2f0c0;
-            border: 2px solid #5c8c5c;
-            border-radius: 8px;
-            padding: 6px 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.8em;
+            background: #2f4f2f; color: #e2f0c0;
+            border: 2px solid #5c8c5c; border-radius: 8px;
+            padding: 6px 10px; cursor: pointer; font-weight: bold;
+            transition: 0.2s; font-size: 0.8em;
             -webkit-tap-highlight-color: transparent;
         }
-        
-        .btn-return:hover {
-            background: #3f6f3f;
-            border-color: #9fdf9f;
-            transform: scale(1.05);
-        }
+        .btn-return:hover { background: #3f6f3f; border-color: #9fdf9f; transform: scale(1.05); }
         
         .btn-partial {
-            background: #8b6b4b;
-            color: #fff0d0;
-            border: 2px solid #ca9e6b;
-            border-radius: 8px;
-            padding: 6px 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.8em;
-            margin-right: 3px;
+            background: #8b6b4b; color: #fff0d0;
+            border: 2px solid #ca9e6b; border-radius: 8px;
+            padding: 6px 10px; cursor: pointer; font-weight: bold;
+            transition: 0.2s; font-size: 0.8em; margin-right: 3px;
             -webkit-tap-highlight-color: transparent;
         }
-        
-        .btn-partial:hover {
-            background: #a88b5a;
-            border-color: #f0b87b;
-            transform: scale(1.05);
+        .btn-partial:hover { background: #a88b5a; border-color: #f0b87b; transform: scale(1.05); }
+
+        /* ===== НОВА КНОПКА: Добавити борг ===== */
+        .btn-add-debt {
+            background: #5c3a7a; color: #e8d0ff;
+            border: 2px solid #9b6bca; border-radius: 8px;
+            padding: 6px 10px; cursor: pointer; font-weight: bold;
+            transition: 0.2s; font-size: 0.8em; margin-right: 3px;
+            -webkit-tap-highlight-color: transparent;
         }
-        
-        .btn-view-payments {
-            background: #4f6b8b;
-            color: #d0e0ff;
-            border: 2px solid #6b8caa;
-            border-radius: 8px;
-            padding: 6px 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            font-size: 0.8em;
-            margin-right: 3px;
-        }
-        
-        .btn-view-payments:hover {
-            background: #6b8caa;
-            border-color: #aac9ff;
-        }
+        .btn-add-debt:hover { background: #7a4f9e; border-color: #c49aee; transform: scale(1.05); }
+        /* ======================================= */
         
         .payments-list {
             font-size: 0.85em;
             margin-top: 5px;
-            max-height: 100px;
+            max-height: 120px;
             overflow-y: auto;
-            background: rgba(20, 30, 10, 0.5);
+            background: rgba(20,30,10,0.5);
             padding: 5px;
             border-radius: 5px;
         }
@@ -356,6 +286,13 @@
             justify-content: space-between;
             padding: 2px 5px;
             border-bottom: 1px solid #5c733a;
+        }
+
+        /* Рядок додаткового боргу — фіолетовий відтінок */
+        .payment-item.debt-add {
+            background: rgba(80, 40, 110, 0.35);
+            color: #ddb8ff;
+            border-bottom: 1px solid #7a4faa;
         }
         
         .footer-info {
@@ -385,23 +322,13 @@
         }
         
         .clear-data-btn {
-            background: #4a3e2b;
-            color: #f0dbb0;
-            border: 2px solid #8b7355;
-            border-radius: 30px;
-            padding: 8px 16px;
-            font-size: 0.8em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: #4a3e2b; color: #f0dbb0;
+            border: 2px solid #8b7355; border-radius: 30px;
+            padding: 8px 16px; font-size: 0.8em; font-weight: bold;
+            cursor: pointer; transition: 0.2s;
+            text-transform: uppercase; letter-spacing: 1px;
         }
-        
-        .clear-data-btn:hover {
-            background: #6b5535;
-            border-color: #ca9e5a;
-        }
+        .clear-data-btn:hover { background: #6b5535; border-color: #ca9e5a; }
         
         .remaining-amount {
             font-size: 0.9em;
@@ -414,10 +341,8 @@
             display: none;
             position: fixed;
             z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.7);
             backdrop-filter: blur(5px);
         }
@@ -433,6 +358,14 @@
             color: #e6d5a8;
             box-shadow: 0 0 30px #000;
         }
+
+        /* Модалка додавання боргу — фіолетова рамка */
+        .modal-content.add-debt-modal {
+            border-color: #9b6bca;
+        }
+        .modal-content.add-debt-modal h3 {
+            color: #ddb8ff;
+        }
         
         .modal h3 {
             text-align: center;
@@ -441,15 +374,25 @@
             letter-spacing: 2px;
         }
         
+        .modal label {
+            display: block;
+            margin: 10px 0 4px;
+            font-size: 0.85em;
+            color: #c8b87a;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .modal-input {
             width: 100%;
             padding: 12px;
-            margin: 10px 0;
+            margin-bottom: 4px;
             background: #2e3b22;
             border: 2px solid #7f6b3d;
             border-radius: 10px;
             color: #f0e6c5;
             font-size: 1em;
+            font-family: inherit;
         }
         
         .modal-buttons {
@@ -468,65 +411,28 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: inherit;
         }
         
-        .modal-btn.save {
-            background: #2f4f2f;
-            color: #e2f0c0;
-            border: 2px solid #5c8c5c;
-        }
-        
-        .modal-btn.cancel {
-            background: #4f2f2f;
-            color: #f0c0c0;
-            border: 2px solid #8c5c5c;
-        }
+        .modal-btn.save   { background: #2f4f2f; color: #e2f0c0; border: 2px solid #5c8c5c; }
+        .modal-btn.save-purple { background: #4a2f6f; color: #e8d0ff; border: 2px solid #9b6bca; }
+        .modal-btn.cancel { background: #4f2f2f; color: #f0c0c0; border: 2px solid #8c5c5c; }
         
         @media (max-width: 900px) {
-            body {
-                padding: 10px;
-            }
-            
-            header h1 {
-                font-size: 1.6em;
-            }
-            
-            .total-amount {
-                font-size: 1.5em;
-                padding: 10px 20px;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .btn-add {
-                grid-column: span 2;
-                margin-top: 5px;
-            }
-            
-            td, th {
-                padding: 8px 4px;
-                font-size: 0.85em;
-            }
+            header h1 { font-size: 1.6em; }
+            .total-amount { font-size: 1.5em; padding: 10px 20px; }
+            .form-row { grid-template-columns: 1fr 1fr; }
+            .btn-add { grid-column: span 2; margin-top: 5px; }
+            td, th { padding: 8px 4px; font-size: 0.85em; }
         }
         
         @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .btn-add {
-                grid-column: span 1;
-            }
-            
-            .footer-info {
-                flex-direction: column;
-                text-align: center;
-            }
+            .form-row { grid-template-columns: 1fr; }
+            .btn-add { grid-column: span 1; }
+            .footer-info { flex-direction: column; text-align: center; }
         }
         
-        .btn-add, .btn-return, .btn-delete, .btn-partial {
+        .btn-add, .btn-return, .btn-delete, .btn-partial, .btn-add-debt {
             min-height: 40px;
             min-width: 40px;
         }
@@ -568,17 +474,15 @@
                     <tr>
                         <th>ПІБ</th>
                         <th>Дата позики</th>
-                        <th>Сума</th>
+                        <th>Сума (загальна)</th>
                         <th>Залишок</th>
                         <th>Повернути до</th>
                         <th>Статус</th>
-                        <th>Внески</th>
+                        <th>Історія</th>
                         <th>Дії</th>
                     </tr>
                 </thead>
-                <tbody id="tableBody">
-                    <!-- Дані будуть додаватись сюди -->
-                </tbody>
+                <tbody id="tableBody"></tbody>
             </table>
         </div>
         
@@ -594,13 +498,13 @@
         </div>
     </div>
 
-    <!-- Модальне вікно для часткового внеску -->
+    <!-- Модальне вікно: Часткове повернення -->
     <div id="paymentModal" class="modal">
         <div class="modal-content">
-            <h3>Додати часткове повернення</h3>
-            <p id="modalDebtInfo"></p>
+            <h3>➕ Часткове повернення</h3>
+            <p id="modalDebtInfo" style="margin-bottom:5px; font-size:0.9em;"></p>
             <label>Дата повернення:</label>
-            <input type="date" id="paymentDate" class="modal-input" value="">
+            <input type="date" id="paymentDate" class="modal-input">
             <label>Сума (грн):</label>
             <input type="number" id="paymentAmount" class="modal-input" placeholder="0" min="1">
             <div class="modal-buttons">
@@ -610,14 +514,28 @@
         </div>
     </div>
 
+    <!-- Модальне вікно: Додати суму боргу -->
+    <div id="addDebtModal" class="modal">
+        <div class="modal-content add-debt-modal">
+            <h3>📈 Додати до боргу</h3>
+            <p id="addDebtInfo" style="margin-bottom:5px; font-size:0.9em; color:#ddb8ff;"></p>
+            <label>Дата:</label>
+            <input type="date" id="addDebtDate" class="modal-input">
+            <label>Сума додаткового боргу (грн):</label>
+            <input type="number" id="addDebtAmount" class="modal-input" placeholder="0" min="1">
+            <label>Коментар (необов'язково):</label>
+            <input type="text" id="addDebtComment" class="modal-input" placeholder="напр. нова позика">
+            <div class="modal-buttons">
+                <button class="modal-btn save-purple" id="saveAddDebtBtn">Додати</button>
+                <button class="modal-btn cancel" id="cancelAddDebtBtn">Скасувати</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Функція для завантаження даних
         function loadDebts() {
             const saved = localStorage.getItem('tabletDebtsMultiple');
-            if (saved) {
-                return JSON.parse(saved);
-            }
-            // Якщо немає збережених даних, повертаємо приклад
+            if (saved) return JSON.parse(saved);
             return [
                 {
                     pib: 'Шевченко Т.Г.',
@@ -627,6 +545,7 @@
                         { date: '2026-03-10', amount: 500 },
                         { date: '2026-03-15', amount: 300 }
                     ],
+                    extraDebts: [],
                     deadline: '2026-03-20',
                     returned: false
                 },
@@ -638,6 +557,7 @@
                         { date: '2026-02-20', amount: 300 },
                         { date: '2026-02-28', amount: 500 }
                     ],
+                    extraDebts: [],
                     deadline: '2026-03-05',
                     returned: true
                 },
@@ -646,294 +566,287 @@
                     loanDate: '2026-03-10',
                     amount: 2200,
                     payments: [],
+                    extraDebts: [],
                     deadline: '2026-03-30',
                     returned: false
                 }
             ];
         }
 
-        // Завантажуємо дані
         let debts = loadDebts();
-        let currentPaymentIndex = -1; // Індекс боргу для поточного внеску
+        let currentPaymentIndex = -1;
+        let currentAddDebtIndex = -1;
 
-        // Елементи DOM
-        const tableBody = document.getElementById('tableBody');
-        const totalAmountSpan = document.getElementById('totalAmount');
-        const recordCountSpan = document.getElementById('recordCount');
+        const tableBody        = document.getElementById('tableBody');
+        const totalAmountSpan  = document.getElementById('totalAmount');
+        const recordCountSpan  = document.getElementById('recordCount');
         const overdueCountSpan = document.getElementById('overdueCount');
-        const totalPaidSpan = document.getElementById('totalPaid');
-        const clearDataBtn = document.getElementById('clearDataBtn');
-        
-        // Модальне вікно
-        const modal = document.getElementById('paymentModal');
-        const modalDebtInfo = document.getElementById('modalDebtInfo');
-        const paymentDate = document.getElementById('paymentDate');
-        const paymentAmount = document.getElementById('paymentAmount');
-        const savePaymentBtn = document.getElementById('savePaymentBtn');
-        const cancelPaymentBtn = document.getElementById('cancelPaymentBtn');
+        const totalPaidSpan    = document.getElementById('totalPaid');
 
-        // Встановлюємо сьогоднішню дату за замовчуванням
-        function setDefaultDate() {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = String(today.getMonth() + 1).padStart(2, '0');
-            const day = String(today.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+        // --- Payment modal elements ---
+        const modal           = document.getElementById('paymentModal');
+        const modalDebtInfo   = document.getElementById('modalDebtInfo');
+        const paymentDate     = document.getElementById('paymentDate');
+        const paymentAmount   = document.getElementById('paymentAmount');
+        const savePaymentBtn  = document.getElementById('savePaymentBtn');
+        const cancelPaymentBtn= document.getElementById('cancelPaymentBtn');
+
+        // --- Add-debt modal elements ---
+        const addDebtModal      = document.getElementById('addDebtModal');
+        const addDebtInfo       = document.getElementById('addDebtInfo');
+        const addDebtDate       = document.getElementById('addDebtDate');
+        const addDebtAmount     = document.getElementById('addDebtAmount');
+        const addDebtComment    = document.getElementById('addDebtComment');
+        const saveAddDebtBtn    = document.getElementById('saveAddDebtBtn');
+        const cancelAddDebtBtn  = document.getElementById('cancelAddDebtBtn');
+
+        function today() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
         }
 
-        // Функція форматування дати
-        function formatDate(dateString) {
-            if (!dateString) return '-';
-            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-            return new Date(dateString).toLocaleDateString('uk-UA', options);
+        function formatDate(ds) {
+            if (!ds) return '-';
+            return new Date(ds).toLocaleDateString('uk-UA', { day:'2-digit', month:'2-digit', year:'numeric' });
         }
 
-        // Функція визначення статусу
-        function getStatus(deadline, returned, amount, payments) {
-            if (returned) return { text: 'Повернуто', class: 'status-returned' };
-            
-            const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
-            const remaining = amount - totalPaid;
-            
-            if (remaining <= 0) return { text: 'Повернуто', class: 'status-returned' };
-            
+        // Загальна сума боргу = початкова + всі додаткові борги
+        function totalDebt(debt) {
+            const extra = (debt.extraDebts || []).reduce((s, e) => s + e.amount, 0);
+            return debt.amount + extra;
+        }
+
+        function getStatus(deadline, returned, debt) {
+            const totalPaid = (debt.payments || []).reduce((s, p) => s + p.amount, 0);
+            const total = totalDebt(debt);
+            const remaining = total - totalPaid;
+
+            if (returned || remaining <= 0) return { text: 'Повернуто', class: 'status-returned' };
+
+            const now = new Date(); now.setHours(0,0,0,0);
+
             if (totalPaid > 0) {
                 if (!deadline) return { text: 'Частково', class: 'status-partial' };
-                
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                const deadlineDate = new Date(deadline);
-                deadlineDate.setHours(0, 0, 0, 0);
-                
-                if (deadlineDate < today) {
-                    return { text: '⚠️ Прострочено', class: 'status-overdue' };
-                }
-                return { text: 'Частково', class: 'status-partial' };
+                const dl = new Date(deadline); dl.setHours(0,0,0,0);
+                return dl < now
+                    ? { text: '⚠️ Прострочено', class: 'status-overdue' }
+                    : { text: 'Частково', class: 'status-partial' };
             }
-            
+
             if (!deadline) return { text: 'Активно', class: 'status-active' };
-            
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            const deadlineDate = new Date(deadline);
-            deadlineDate.setHours(0, 0, 0, 0);
-            
-            if (deadlineDate < today) {
-                return { text: '⚠️ Прострочено', class: 'status-overdue' };
-            }
-            return { text: 'Активно', class: 'status-active' };
+            const dl = new Date(deadline); dl.setHours(0,0,0,0);
+            return dl < now
+                ? { text: '⚠️ Прострочено', class: 'status-overdue' }
+                : { text: 'Активно', class: 'status-active' };
         }
 
-        // Функція для відкриття модального вікна
+        // ===== Відкрити модалку повернення =====
         window.openPaymentModal = (index) => {
             const debt = debts[index];
             if (!debt) return;
-            
-            const totalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
-            const remaining = debt.amount - totalPaid;
-            
-            if (remaining <= 0) {
-                alert('Борг вже повністю повернуто!');
-                return;
-            }
-            
+            const paid = (debt.payments || []).reduce((s, p) => s + p.amount, 0);
+            const remaining = totalDebt(debt) - paid;
+            if (remaining <= 0) { alert('Борг вже повністю повернуто!'); return; }
             currentPaymentIndex = index;
-            modalDebtInfo.innerText = `${debt.pib} - залишок: ${remaining} грн`;
-            paymentDate.value = setDefaultDate();
+            modalDebtInfo.innerText = `${debt.pib} — залишок: ${remaining.toLocaleString()} грн`;
+            paymentDate.value = today();
             paymentAmount.value = '';
             modal.style.display = 'block';
         };
 
-        // Збереження платежу
         savePaymentBtn.addEventListener('click', () => {
             if (currentPaymentIndex === -1) return;
-            
             const debt = debts[currentPaymentIndex];
             const date = paymentDate.value;
             const amount = parseFloat(paymentAmount.value);
-            
-            if (!date) {
-                alert('Виберіть дату повернення!');
-                return;
-            }
-            
-            if (!amount || amount <= 0) {
-                alert('Введіть коректну суму!');
-                return;
-            }
-            
-            const totalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
-            const remaining = debt.amount - totalPaid;
-            
-            if (amount > remaining) {
-                alert(`Сума не може перевищувати залишок (${remaining} грн)!`);
-                return;
-            }
-            
-            // Додаємо платіж
-            if (!debt.payments) {
-                debt.payments = [];
-            }
-            
-            debt.payments.push({
-                date: date,
-                amount: amount
-            });
-            
-            // Сортуємо платежі за датою
+            if (!date) { alert('Виберіть дату повернення!'); return; }
+            if (!amount || amount <= 0) { alert('Введіть коректну суму!'); return; }
+            const paid = (debt.payments || []).reduce((s, p) => s + p.amount, 0);
+            const remaining = totalDebt(debt) - paid;
+            if (amount > remaining) { alert(`Сума не може перевищувати залишок (${remaining.toLocaleString()} грн)!`); return; }
+            if (!debt.payments) debt.payments = [];
+            debt.payments.push({ date, amount });
             debt.payments.sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            // Перевіряємо чи повністю повернуто
-            const newTotalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
-            if (newTotalPaid >= debt.amount) {
-                debt.returned = true;
-            }
-            
+            const newPaid = debt.payments.reduce((s, p) => s + p.amount, 0);
+            if (newPaid >= totalDebt(debt)) debt.returned = true;
             modal.style.display = 'none';
             currentPaymentIndex = -1;
             renderTable();
         });
 
-        // Скасування
         cancelPaymentBtn.addEventListener('click', () => {
             modal.style.display = 'none';
             currentPaymentIndex = -1;
         });
 
-        // Закриття модального вікна при кліку поза ним
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-                currentPaymentIndex = -1;
-            }
+        // ===== Відкрити модалку додавання боргу =====
+        window.openAddDebtModal = (index) => {
+            const debt = debts[index];
+            if (!debt) return;
+            currentAddDebtIndex = index;
+            addDebtInfo.innerText = `${debt.pib} — поточний борг: ${totalDebt(debt).toLocaleString()} грн`;
+            addDebtDate.value = today();
+            addDebtAmount.value = '';
+            addDebtComment.value = '';
+            addDebtModal.style.display = 'block';
+        };
+
+        saveAddDebtBtn.addEventListener('click', () => {
+            if (currentAddDebtIndex === -1) return;
+            const debt = debts[currentAddDebtIndex];
+            const date = addDebtDate.value;
+            const amount = parseFloat(addDebtAmount.value);
+            const comment = addDebtComment.value.trim();
+            if (!date) { alert('Виберіть дату!'); return; }
+            if (!amount || amount <= 0) { alert('Введіть коректну суму!'); return; }
+            if (!debt.extraDebts) debt.extraDebts = [];
+            debt.extraDebts.push({ date, amount, comment: comment || null });
+            debt.extraDebts.sort((a, b) => new Date(a.date) - new Date(b.date));
+            // Якщо борг вважався поверненим, знімаємо цей статус
+            if (debt.returned) debt.returned = false;
+            addDebtModal.style.display = 'none';
+            currentAddDebtIndex = -1;
+            renderTable();
         });
 
-        // Оновлення таблиці та підсумків
+        cancelAddDebtBtn.addEventListener('click', () => {
+            addDebtModal.style.display = 'none';
+            currentAddDebtIndex = -1;
+        });
+
+        // Закриття модалок по кліку поза ними
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) { modal.style.display = 'none'; currentPaymentIndex = -1; }
+            if (e.target === addDebtModal) { addDebtModal.style.display = 'none'; currentAddDebtIndex = -1; }
+        });
+
+        // ===== Рендер таблиці =====
         function renderTable() {
-            let totalBorrowed = 0;
-            let totalPaidSum = 0;
-            let overdue = 0;
+            let totalBorrowed = 0, totalPaidSum = 0, overdue = 0;
             let rows = '';
 
             debts.forEach((debt, index) => {
-                const payments = debt.payments || [];
-                const totalPaid = payments.reduce((sum, p) => sum + p.amount, 0);
-                const remaining = debt.amount - totalPaid;
-                
-                totalBorrowed += debt.amount;
-                totalPaidSum += totalPaid;
-                
-                const status = getStatus(debt.deadline, debt.returned, debt.amount, payments);
+                const payments   = debt.payments   || [];
+                const extraDebts = debt.extraDebts || [];
+                const total      = totalDebt(debt);
+                const paid       = payments.reduce((s, p) => s + p.amount, 0);
+                const remaining  = total - paid;
+
+                totalBorrowed += total;
+                totalPaidSum  += paid;
+
+                const status = getStatus(debt.deadline, debt.returned, debt);
                 if (status.class === 'status-overdue' && !debt.returned && remaining > 0) overdue++;
-                
-                // Форматування списку платежів
-                let paymentsHtml = '';
-                if (payments.length > 0) {
-                    paymentsHtml = '<div class="payments-list">';
-                    payments.forEach(p => {
-                        paymentsHtml += `<div class="payment-item">
-                            <span>${formatDate(p.date)}</span>
-                            <span>${p.amount.toLocaleString()} грн</span>
-                        </div>`;
+
+                // ===== Історія (платежі + додаткові борги в хронологічному порядку) =====
+                // Збираємо всі події разом і сортуємо
+                const events = [
+                    ...payments.map(p => ({ date: p.date, type: 'pay', amount: p.amount, comment: null })),
+                    ...extraDebts.map(e => ({ date: e.date, type: 'add', amount: e.amount, comment: e.comment }))
+                ].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                let historyHtml = '';
+                if (events.length > 0) {
+                    historyHtml = '<div class="payments-list">';
+                    events.forEach(ev => {
+                        if (ev.type === 'pay') {
+                            historyHtml += `<div class="payment-item">
+                                <span>${formatDate(ev.date)}</span>
+                                <span style="color:#b8f3b8;">−${ev.amount.toLocaleString()} грн</span>
+                            </div>`;
+                        } else {
+                            historyHtml += `<div class="payment-item debt-add">
+                                <span>${formatDate(ev.date)}${ev.comment ? ' · ' + ev.comment : ''}</span>
+                                <span>+${ev.amount.toLocaleString()} грн</span>
+                            </div>`;
+                        }
                     });
-                    paymentsHtml += '</div>';
+                    historyHtml += '</div>';
                 } else {
-                    paymentsHtml = '<span style="color: #8b9a7a;">Немає внесків</span>';
+                    historyHtml = '<span style="color:#8b9a7a;">Немає записів</span>';
                 }
-                
-                // Дії
+
+                // ===== Дії =====
                 let actions = '';
                 if (!debt.returned && remaining > 0) {
                     actions = `
-                        <div style="display: flex; flex-wrap: wrap; gap: 3px; align-items: center;">
-                            <button class="btn-partial" onclick="openPaymentModal(${index})">+ Внести</button>
-                            <button class="btn-return" onclick="markAsReturned(${index})">Повністю</button>
-                            <button class="btn-delete" onclick="deleteDebt(${index})">✖</button>
-                        </div>
-                    `;
+                        <div style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;">
+                            <button class="btn-add-debt" onclick="openAddDebtModal(${index})">📈 +Борг</button>
+                            <button class="btn-partial"  onclick="openPaymentModal(${index})">↩ Внесок</button>
+                            <button class="btn-return"   onclick="markAsReturned(${index})">✔ Повністю</button>
+                            <button class="btn-delete"   onclick="deleteDebt(${index})">✖</button>
+                        </div>`;
                 } else {
-                    actions = `<button class="btn-delete" onclick="deleteDebt(${index})">✖</button>`;
+                    actions = `
+                        <div style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;">
+                            <button class="btn-add-debt" onclick="openAddDebtModal(${index})">📈 +Борг</button>
+                            <button class="btn-delete"   onclick="deleteDebt(${index})">✖</button>
+                        </div>`;
                 }
-                
+
+                // Відображення суми: якщо є додаткові, показуємо розбивку
+                let amountCell = `${total.toLocaleString()} грн`;
+                if (extraDebts.length > 0) {
+                    amountCell += `<div style="font-size:0.8em;color:#bba0dd;margin-top:2px;">
+                        (${debt.amount.toLocaleString()} + ${extraDebts.reduce((s,e)=>s+e.amount,0).toLocaleString()})
+                    </div>`;
+                }
+
                 rows += `<tr>
                     <td><strong>${debt.pib || 'Без імені'}</strong></td>
                     <td>${formatDate(debt.loanDate)}</td>
-                    <td>${debt.amount.toLocaleString()} грн</td>
+                    <td>${amountCell}</td>
                     <td>
                         <strong>${remaining.toLocaleString()} грн</strong>
-                        ${totalPaid > 0 ? `<div class="remaining-amount">(повернено ${totalPaid.toLocaleString()})</div>` : ''}
+                        ${paid > 0 ? `<div class="remaining-amount">(повернено ${paid.toLocaleString()})</div>` : ''}
                     </td>
                     <td>${formatDate(debt.deadline)}</td>
                     <td><span class="status-badge ${status.class}">${status.text}</span></td>
-                    <td>${paymentsHtml}</td>
+                    <td>${historyHtml}</td>
                     <td>${actions}</td>
                 </tr>`;
             });
 
             tableBody.innerHTML = rows;
-            totalAmountSpan.innerText = totalBorrowed.toLocaleString() + ' грн';
-            recordCountSpan.innerText = debts.length + ' записів';
+            totalAmountSpan.innerText  = totalBorrowed.toLocaleString() + ' грн';
+            recordCountSpan.innerText  = debts.length + ' записів';
             overdueCountSpan.innerText = overdue + ' прострочено';
-            totalPaidSpan.innerText = `Повернено: ${totalPaidSum.toLocaleString()} грн`;
+            totalPaidSpan.innerText    = `Повернено: ${totalPaidSum.toLocaleString()} грн`;
 
-            // Збереження в localStorage
             localStorage.setItem('tabletDebtsMultiple', JSON.stringify(debts));
         }
 
         // Додавання нового боргу
         document.getElementById('addBtn').addEventListener('click', () => {
-            const pib = document.getElementById('pib').value.trim();
+            const pib      = document.getElementById('pib').value.trim();
             const loanDate = document.getElementById('loanDate').value;
-            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const amount   = parseFloat(document.getElementById('amount').value) || 0;
             const deadline = document.getElementById('deadline').value;
 
-            if (!pib || !loanDate) {
-                alert('Будь ласка, заповніть ПІБ та дату позики!');
-                return;
-            }
+            if (!pib || !loanDate) { alert('Будь ласка, заповніть ПІБ та дату позики!'); return; }
+            if (amount <= 0) { alert('Сума має бути більше 0!'); return; }
 
-            if (amount <= 0) {
-                alert('Сума має бути більше 0!');
-                return;
-            }
-
-            const newDebt = {
-                pib,
-                loanDate,
-                amount,
-                payments: [],
-                deadline: deadline || null,
-                returned: false
-            };
-
-            debts.push(newDebt);
+            debts.push({ pib, loanDate, amount, payments: [], extraDebts: [], deadline: deadline || null, returned: false });
             renderTable();
 
-            // Очищення форми
-            document.getElementById('pib').value = '';
+            document.getElementById('pib').value      = '';
             document.getElementById('loanDate').value = '';
-            document.getElementById('amount').value = '';
+            document.getElementById('amount').value   = '';
             document.getElementById('deadline').value = '';
         });
 
-        // Позначити як повністю повернуто
         window.markAsReturned = (index) => {
-            if (debts[index]) {
-                const debt = debts[index];
-                debt.returned = true;
-                // Додаємо платіж на всю суму, якщо ще не повернуто
-                const totalPaid = debt.payments.reduce((sum, p) => sum + p.amount, 0);
-                if (totalPaid < debt.amount) {
-                    debt.payments.push({
-                        date: setDefaultDate(),
-                        amount: debt.amount - totalPaid
-                    });
-                }
-                renderTable();
+            if (!debts[index]) return;
+            const debt = debts[index];
+            debt.returned = true;
+            const paid = (debt.payments || []).reduce((s, p) => s + p.amount, 0);
+            const total = totalDebt(debt);
+            if (paid < total) {
+                debt.payments.push({ date: today(), amount: total - paid });
             }
+            renderTable();
         };
 
-        // Видалити запис
         window.deleteDebt = (index) => {
             if (confirm('Видалити цей запис?')) {
                 debts.splice(index, 1);
@@ -941,29 +854,24 @@
             }
         };
 
-        // Очистити всі дані
-        clearDataBtn.addEventListener('click', () => {
+        document.getElementById('clearDataBtn').addEventListener('click', () => {
             if (confirm('Видалити ВСІ записи? Цю дію не можна скасувати!')) {
                 debts = [];
                 renderTable();
             }
         });
 
-        // Експорт даних у JSON-файл
         document.getElementById('exportBtn').addEventListener('click', () => {
             const json = JSON.stringify(debts, null, 2);
             const blob = new Blob([json], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            const today = new Date();
-            const dateStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-            a.href = url;
-            a.download = `борги_${dateStr}.json`;
-            a.click();
+            const url  = URL.createObjectURL(blob);
+            const a    = document.createElement('a');
+            const d    = new Date();
+            const ds   = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+            a.href = url; a.download = `борги_${ds}.json`; a.click();
             URL.revokeObjectURL(url);
         });
 
-        // Імпорт даних із JSON-файлу
         document.getElementById('importBtn').addEventListener('click', () => {
             document.getElementById('importFile').click();
         });
@@ -975,25 +883,23 @@
             reader.onload = (ev) => {
                 try {
                     const imported = JSON.parse(ev.target.result);
-                    if (!Array.isArray(imported)) throw new Error('Невірний формат');
+                    if (!Array.isArray(imported)) throw new Error();
                     if (debts.length > 0) {
                         if (!confirm(`Замінити поточні дані (${debts.length} записів) імпортованими (${imported.length} записів)?`)) {
-                            e.target.value = '';
-                            return;
+                            e.target.value = ''; return;
                         }
                     }
                     debts = imported;
                     renderTable();
                     alert(`✅ Імпортовано ${imported.length} записів!`);
-                } catch (err) {
-                    alert('❌ Помилка читання файлу. Перевірте, що це файл експорту боргів.');
+                } catch {
+                    alert('❌ Помилка читання файлу.');
                 }
                 e.target.value = '';
             };
             reader.readAsText(file);
         });
 
-        // Початковий рендер
         renderTable();
     </script>
 </body>
